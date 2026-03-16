@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta — Records Barcelona</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --terra:       #9C4A2E;
+  --terra-dark:  #7A3520;
+  --terra-light: #B5634A;
+  --cream:       #F4EDE4;
+  --beige:       #EFE6D8;
+  --olive:       #6B7A4F;
+  --olive-dark:  #4E5A38;
+  --text:        #2B2B2B;
+  --text-light:  #7A7168;
+  --white:       #FDFAF7;
+  --card-shadow: 0 2px 24px rgba(43,27,18,0.08), 0 0 0 1px rgba(156,74,46,0.06);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--text); font-family:'Lato',sans-serif; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+
+/* ── NAV ── */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:0 3rem; height:76px; background:rgba(43,27,18,0.96); backdrop-filter:blur(20px); border-bottom:1px solid rgba(244,237,228,0.08); }
+.nav-left { display:flex; gap:2.5rem; list-style:none; align-items:center; }
+.nav-left a { color:rgba(244,237,228,0.5); font-size:0.7rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; transition:color 0.25s; }
+.nav-left a:hover { color:var(--cream); }
+.nav-logo { display:flex; flex-direction:column; align-items:center; line-height:1; }
+.nav-logo-name { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--cream); letter-spacing:0.08em; }
+.nav-logo-sub { font-size:0.52rem; color:rgba(244,237,228,0.3); letter-spacing:0.5em; text-transform:uppercase; margin-top:4px; }
+.nav-right { display:flex; justify-content:flex-end; }
+.nav-back { background:transparent; color:rgba(244,237,228,0.5); border:1px solid rgba(244,237,228,0.18); padding:0.5rem 1.4rem; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; transition:all 0.25s; }
+.nav-back:hover { color:var(--cream); border-color:rgba(244,237,228,0.45); }
+.nav-hamburger { display:none; flex-direction:column; gap:6px; cursor:pointer; background:none; border:none; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:1px; background:var(--cream); }
+.nav-dropdown { display:none; position:fixed; top:76px; left:0; right:0; z-index:199; background:rgba(43,27,18,0.98); backdrop-filter:blur(20px); flex-direction:column; padding:0.5rem 0; border-bottom:1px solid rgba(244,237,228,0.08); }
+.nav-dropdown.open { display:flex; }
+.nav-dropdown a { color:rgba(244,237,228,0.6); font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:1.1rem 2.5rem; border-bottom:1px solid rgba(244,237,228,0.06); transition:all 0.2s; }
+.nav-dropdown a:hover { color:var(--cream); background:rgba(156,74,46,0.15); }
+.nav-dropdown a:last-child { border-bottom:none; }
+
+/* ── HERO PÀGINA ── */
+.page-hero {
+  position:relative; min-height:50svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; overflow:hidden; padding:8rem 2rem 5rem;
+}
+.page-hero-bg {
+  position:absolute; inset:0;
+  background: linear-gradient(160deg, #3D1F0F 0%, #5C2E14 40%, #9C4A2E 75%, #6B7A4F 100%);
+  z-index:0;
+}
+.page-hero-bg::after {
+  content:''; position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.012'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.page-hero-vignette { position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 20%, rgba(43,27,18,0.65) 100%); z-index:1; }
+.page-hero-content { position:relative; z-index:2; animation:heroFade 0.9s 0.2s both; }
+@keyframes heroFade { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+.page-hero-ornament { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1.5rem; }
+.ph-line { width:40px; height:1px; background:rgba(244,237,228,0.3); }
+.ph-dot { width:4px; height:4px; border-radius:50%; background:rgba(244,237,228,0.4); }
+
+.page-hero-eyebrow { font-size:0.6rem; font-weight:700; letter-spacing:0.5em; text-transform:uppercase; color:rgba(244,237,228,0.45); margin-bottom:1.2rem; display:block; }
+.page-hero-title { font-family:'Playfair Display',serif; font-size:clamp(3rem,8vw,5.5rem); font-weight:900; color:var(--cream); line-height:0.9; letter-spacing:-0.01em; }
+.page-hero-title em { font-style:italic; font-weight:400; font-size:0.65em; color:rgba(244,237,228,0.5); display:block; margin-top:0.3em; letter-spacing:0.12em; }
+.page-hero-sub { color:rgba(244,237,228,0.4); font-size:0.75rem; margin-top:1.2rem; letter-spacing:0.2em; text-transform:uppercase; }
+
+/* ── MENÚ ── */
+#menu { padding:2rem 2rem 3rem; background:var(--white); }
+.menu-card { max-width:1100px; margin:0 auto; background:#fff; box-shadow:var(--card-shadow); border-radius:2px; padding:4rem 4rem; }
+.menu-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(156,74,46,0.1); flex-wrap:wrap; gap:1.5rem; }
+.menu-header-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; color:var(--text); }
+.menu-header-title em { font-style:italic; color:var(--terra); }
+.tabs { display:flex; gap:0; border:1px solid rgba(156,74,46,0.18); overflow:hidden; }
+.tab { padding:0.6rem 1.2rem; background:transparent; color:rgba(43,43,43,0.4); font-family:'Lato',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; border:none; border-right:1px solid rgba(156,74,46,0.18); cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+.tab:last-child { border-right:none; }
+.tab.active, .tab:hover { background:var(--terra-dark); color:var(--cream); }
+.menu-grid { display:flex; flex-direction:column; }
+.menu-cat { display:none; }
+.menu-cat.show { display:flex; flex-direction:column; }
+.cat-heading { font-family:'Playfair Display',serif; font-size:0.65rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:var(--terra); padding:2.2rem 0 0.9rem; border-bottom:1px solid rgba(156,74,46,0.1); margin-bottom:0; }
+
+/* Plats */
+.dish { display:grid; grid-template-columns:72px 1fr auto; gap:1.3rem; align-items:center; padding:1.1rem 0; border-bottom:1px solid rgba(156,74,46,0.07); transition:all 0.22s; cursor:pointer; }
+.dish:last-child { border-bottom:none; }
+.dish:hover { background:rgba(239,230,216,0.4); padding-left:0.8rem; padding-right:0.8rem; margin-left:-0.8rem; margin-right:-0.8rem; }
+.dish-thumb { width:72px; height:72px; border-radius:1px; object-fit:cover; flex-shrink:0; }
+.dish-thumb-placeholder { width:72px; height:72px; border-radius:1px; flex-shrink:0; background:linear-gradient(135deg,var(--terra) 0%,var(--terra-dark) 100%); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+.dish-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:0.25rem; }
+.dish-desc { font-size:0.76rem; color:var(--text-light); line-height:1.55; }
+.dish-badge { font-size:0.54rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--olive); background:rgba(107,122,79,0.1); padding:0.15rem 0.5rem; display:inline-block; margin-top:0.3rem; }
+.dish-unavailable { opacity:0.4; pointer-events:none; }
+.dish-unavailable .dish-qty-wrap { display:none; }
+.dish-unavailable .dish-right::after { content:'No disponible avui'; font-size:0.62rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#bbb; white-space:nowrap; }
+.dish-right { display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem; min-width:60px; }
+.dish-price { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--terra); white-space:nowrap; }
+.add-btn { width:30px; height:30px; border-radius:50%; background:var(--terra-dark); color:var(--cream); border:none; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; flex-shrink:0; }
+.add-btn:hover { background:var(--terra); }
+.dish-qty { display:flex; align-items:center; gap:0.3rem; background:var(--terra-dark); border-radius:20px; padding:0.15rem 0.3rem; }
+.dish-qty-btn { width:24px; height:24px; border-radius:50%; border:none; background:rgba(255,255,255,0.15); color:var(--cream); font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; line-height:1; flex-shrink:0; }
+.dish-qty-btn:hover { background:rgba(255,255,255,0.28); }
+.dish-qty-num { font-size:0.82rem; font-weight:700; color:var(--cream); min-width:14px; text-align:center; }
+
+/* ── SECCIÓ COMANDA ── */
+#order { padding:0 2rem 3rem; background:var(--white); }
+.order-card { max-width:1100px; margin:0 auto; background:#fff; box-shadow:var(--card-shadow); border-radius:2px; overflow:hidden; }
+.order-header { padding:3.5rem 4rem 2.5rem; border-bottom:1px solid rgba(156,74,46,0.09); }
+.order-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.5rem); font-weight:700; color:var(--text); }
+.order-title em { font-style:italic; color:var(--terra); }
+
+/* Resum comanda */
+.cart-panel { padding:3rem 4rem; border-bottom:1px solid rgba(156,74,46,0.09); }
+.cart-header-row { display:flex; justify-content:space-between; align-items:center; padding-bottom:1.1rem; margin-bottom:1.1rem; border-bottom:1px solid rgba(156,74,46,0.1); }
+.cart-label { font-size:0.58rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-light); }
+.cart-badge { background:var(--terra); color:var(--cream); border-radius:50%; width:22px; height:22px; font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.cart-empty { color:rgba(122,113,104,0.5); font-size:0.85rem; text-align:center; padding:2.5rem 0; font-family:'Playfair Display',serif; font-style:italic; }
+.cart-item-row { display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0; border-bottom:1px solid rgba(156,74,46,0.07); color:var(--text); font-size:0.82rem; gap:0.5rem; }
+.cart-item-row:last-of-type { border-bottom:none; }
+.ci-name { flex:1; line-height:1.3; }
+.ci-price { color:var(--terra); font-weight:700; white-space:nowrap; }
+.ci-qty { display:flex; align-items:center; gap:0.3rem; background:rgba(156,74,46,0.08); border-radius:20px; padding:0.1rem 0.35rem; }
+.ci-qty-btn { background:none; border:none; color:var(--text); cursor:pointer; font-size:0.85rem; width:18px; height:18px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background 0.15s; }
+.ci-qty-btn:hover { background:rgba(156,74,46,0.12); }
+.ci-qty-num { font-size:0.8rem; font-weight:700; min-width:14px; text-align:center; }
+.cart-total-row { display:flex; justify-content:space-between; padding-top:1.1rem; margin-top:0.5rem; border-top:1px solid rgba(156,74,46,0.12); font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--terra); }
+.btn-confirmar { display:block; width:100%; margin-top:1.8rem; padding:1rem; background:var(--terra); color:var(--cream); border:none; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; cursor:pointer; transition:all 0.25s; text-align:center; }
+.btn-confirmar:hover { background:var(--terra-light); transform:translateY(-1px); }
+
+/* Formulari */
+.form-panel { padding:3rem 4rem; }
+.mode-toggle { display:flex; margin-bottom:2.2rem; border:1px solid rgba(156,74,46,0.18); overflow:hidden; }
+.tgl { flex:1; padding:0.85rem; background:transparent; border:none; color:rgba(43,43,43,0.4); font-family:'Lato',sans-serif; font-size:0.67rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; border-right:1px solid rgba(156,74,46,0.18); }
+.tgl:last-child { border-right:none; }
+.tgl.on { background:var(--terra-dark); color:var(--cream); }
+.fg { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.1rem; }
+.fg label { font-size:0.58rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:var(--text-light); }
+.fg input, .fg textarea { background:transparent; border:none; border-bottom:1px solid rgba(156,74,46,0.18); padding:0.75rem 0; color:var(--text); font-family:'Lato',sans-serif; font-size:0.95rem; outline:none; transition:border-color 0.2s; -webkit-appearance:none; border-radius:0; }
+.fg input:focus, .fg textarea:focus { border-bottom-color:var(--terra); }
+.fg textarea { resize:vertical; min-height:75px; }
+.submit-btn { width:100%; margin-top:1.8rem; padding:1.1rem; background:var(--terra); color:var(--cream); border:none; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; cursor:pointer; transition:all 0.25s; display:flex; align-items:center; justify-content:center; gap:0.6rem; }
+.submit-btn:hover { background:var(--terra-light); transform:translateY(-1px); }
+.order-info-msg { font-size:0.78rem; color:var(--text-light); line-height:1.65; background:rgba(107,122,79,0.07); border-left:2px solid var(--olive); padding:0.8rem 1.1rem; margin-bottom:1.2rem; }
+#avis-carret-buit { display:none; align-items:center; gap:0.75rem; background:rgba(156,74,46,0.05); border:1px solid rgba(156,74,46,0.25); border-left:3px solid var(--terra); padding:0.9rem 1.1rem; margin-bottom:1.2rem; border-radius:1px; animation:shake 0.35s ease; }
+#avis-carret-buit.visible { display:flex; }
+#avis-carret-buit span { font-size:0.8rem; color:var(--terra); font-weight:700; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 40%{transform:translateX(5px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)} }
+.field-error input, .field-error textarea { border-bottom-color:var(--terra) !important; animation:shake 0.35s ease; }
+.field-error label { color:var(--terra) !important; }
+
+/* ── FOOTER ── */
+footer { background:var(--white); padding:0 2rem 3rem; text-align:center; }
+.footer-card { max-width:1100px; margin:0 auto; background:#fff; box-shadow:var(--card-shadow); border-radius:2px; padding:3.5rem 4rem 2rem; }
+.footer-ornament { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1.5rem; }
+.footer-ornament-line { width:60px; height:1px; background:rgba(156,74,46,0.18); }
+.footer-ornament-icon { color:var(--terra); font-size:0.9rem; opacity:0.5; }
+.footer-name { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--text); letter-spacing:0.04em; }
+.footer-tagline { font-family:'Playfair Display',serif; font-style:italic; font-size:0.9rem; color:var(--text-light); margin-top:0.4rem; }
+.footer-divider { width:36px; height:1px; background:var(--terra); margin:1.8rem auto; }
+.footer-bottom { color:rgba(43,43,43,0.28); font-size:0.68rem; letter-spacing:0.1em; border-top:1px solid rgba(156,74,46,0.07); padding-top:1.5rem; }
+
+/* ── CARRET FLOTANT ── */
+#carret-flotant { position:fixed; right:22px; bottom:26px; z-index:500; }
+#carret-icona { display:flex; align-items:center; gap:0.55rem; padding:0 1.3rem; height:50px; border-radius:25px; background:var(--terra-dark); color:var(--cream); cursor:pointer; box-shadow:0 4px 24px rgba(122,53,32,0.45); transition:transform 0.2s ease, box-shadow 0.2s ease; user-select:none; white-space:nowrap; }
+#carret-icona:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(122,53,32,0.55); }
+#carret-icona.pop { animation:cartPop 0.38s cubic-bezier(0.36,0.07,0.19,0.97); }
+@keyframes cartPop { 0%{transform:scale(1)} 30%{transform:scale(1.12)} 60%{transform:scale(0.94)} 100%{transform:scale(1)} }
+#carret-emoji { font-size:1.05rem; line-height:1; }
+#carret-total { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; color:var(--cream); letter-spacing:0.02em; }
+
+/* ── ANIMACIONS ── */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-child { opacity:0; transform:translateY(16px); transition:opacity 0.5s ease, transform 0.5s ease; }
+.reveal-child.visible { opacity:1; transform:translateY(0); }
+.reveal-child:nth-child(2) { transition-delay:0.08s; }
+.reveal-child:nth-child(3) { transition-delay:0.16s; }
+@media (prefers-reduced-motion:reduce) { .reveal,.reveal-child { transition:none; opacity:1; transform:none; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  nav { grid-template-columns:auto 1fr auto; padding:0 1.5rem; height:64px; }
+  .nav-left, .nav-right { display:none; }
+  .nav-logo-name { font-size:1.15rem; } .nav-logo-sub { display:none; }
+  .nav-hamburger { display:flex; }
+  .page-hero { min-height:46svh; padding:6rem 1.5rem 4rem; }
+  .page-hero-title { font-size:clamp(2.8rem,12vw,4rem); }
+  #menu { padding:1rem 0 2rem; }
+  .menu-card { border-radius:0; padding:2.5rem 1.5rem; }
+  .menu-header { flex-direction:column; align-items:flex-start; gap:1rem; }
+  .tabs { width:100%; flex-wrap:wrap; }
+  .tab { flex:1; text-align:center; padding:0.6rem 0.3rem; font-size:0.58rem; }
+  .dish { grid-template-columns:58px 1fr auto; gap:0.8rem; padding:0.9rem 0; }
+  .dish:hover { padding-left:0; padding-right:0; margin-left:0; margin-right:0; }
+  .dish-thumb, .dish-thumb-placeholder { width:58px; height:58px; }
+  .dish-name { font-size:0.95rem; } .dish-desc { font-size:0.73rem; }
+  #order { padding:0 0 2rem; }
+  .order-card { border-radius:0; }
+  .order-header { padding:2.5rem 1.5rem 1.5rem; }
+  .cart-panel { padding:2rem 1.5rem; }
+  .form-panel { padding:2rem 1.5rem; }
+  .tgl { font-size:0.62rem; padding:0.75rem 0.3rem; }
+  footer { padding:0 0 2rem; }
+  .footer-card { border-radius:0; padding:3rem 1.5rem 1.5rem; }
+  .footer-name { font-size:1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-left">
+    <li><a href="#menu">Carta</a></li>
+    <li><a href="#order">Comanda</a></li>
+  </ul>
+  <a href="records_index.html" class="nav-logo">
+    <span class="nav-logo-name">Records</span>
+    <span class="nav-logo-sub">Barcelona</span>
+  </a>
+  <div class="nav-right">
+    <a href="records_index.html" class="nav-back">← Inici</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dropdown" id="navDropdown">
+  <a href="#menu"  onclick="closeNav()">Carta</a>
+  <a href="#order" onclick="closeNav()">Comanda</a>
+  <a href="records_index.html">← Inici</a>
+</div>
+
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-vignette"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-ornament">
+      <div class="ph-line"></div><div class="ph-dot"></div><div class="ph-line"></div>
+    </div>
+    <span class="page-hero-eyebrow">Records Barcelona · Marquès de Sentmenat</span>
+    <h1 class="page-hero-title">
+      La carta
+      <em>de temporada</em>
+    </h1>
+    <p class="page-hero-sub">Cuina catalana · Producte local · Tècnica contemporània</p>
+  </div>
+</div>
+
+
+<!-- MENÚ -->
+<section id="menu">
+  <div class="menu-card">
+    <div class="menu-header">
+      <h2 class="menu-header-title">Carta <em>Records</em></h2>
+      <div class="tabs">
+        <button class="tab active" onclick="showCat('all',this)">Tot</button>
+        <button class="tab" onclick="showCat('entrants',this)">Entrants</button>
+        <button class="tab" onclick="showCat('principals',this)">Principals</button>
+        <button class="tab" onclick="showCat('postres',this)">Postres</button>
+        <button class="tab" onclick="showCat('begudes',this)">Begudes</button>
+      </div>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- ══ ENTRANTS ══ -->
+      <div class="menu-cat show" id="cat-all-entrants">
+        <div class="cat-heading">✦ Per compartir i entrants</div>
+
+        <div class="dish reveal-child" data-name="Pa amb tomàquet" data-price="3.50">
+          <div class="dish-thumb-placeholder">🍞</div>
+          <div>
+            <div class="dish-name">Pa amb tomàquet</div>
+            <div class="dish-desc">Pa artesà de Triticum, tomàquet de branca, oli verge extra de les Garrigues i flor de sal</div>
+            <span class="dish-badge">✦ Clàssic</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">3.50€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Croquetes de rostit" data-price="10">
+          <div class="dish-thumb-placeholder">🥘</div>
+          <div>
+            <div class="dish-name">Croquetes de rostit</div>
+            <div class="dish-desc">Croquetes cremoses de rostit de vedella i pollastre de casa, beixamel lleugerament especiada · 4 unitats</div>
+            <span class="dish-badge">✦ Plat de la casa</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">10€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Embotits artesans" data-price="13">
+          <div class="dish-thumb-placeholder">🍖</div>
+          <div>
+            <div class="dish-name">Embotits artesans</div>
+            <div class="dish-desc">Selecció d'embotits artesanals catalans — fuet, llonganissa, pernil i botifarra seca de Can Rovira</div>
+          </div>
+          <div class="dish-right"><span class="dish-price">13€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Formatges de proximitat" data-price="14">
+          <div class="dish-thumb-placeholder">🧀</div>
+          <div>
+            <div class="dish-name">Formatges de proximitat</div>
+            <div class="dish-desc">Selecció de formatges catalans — mató, manxego i cabrales, amb mel de la muntanya i nous</div>
+          </div>
+          <div class="dish-right"><span class="dish-price">14€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Truita de botifarra" data-price="9">
+          <div class="dish-thumb-placeholder">🥚</div>
+          <div>
+            <div class="dish-name">Truita de botifarra</div>
+            <div class="dish-desc">Truita melosa amb botifarra negra del Penedès, ceba caramel·litzada i all i oli de pebre</div>
+          </div>
+          <div class="dish-right"><span class="dish-price">9€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Amanida de l'horta" data-price="11">
+          <div class="dish-thumb-placeholder">🥗</div>
+          <div>
+            <div class="dish-name">Amanida de l'horta</div>
+            <div class="dish-desc">Verdures de temporada del mercat, formatge fresc de proximitat, nous de Castellnou i vinagreta de mòdena</div>
+            <span class="dish-badge">✦ Temporada</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">11€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+      </div><!-- /entrants -->
+
+
+      <!-- ══ PRINCIPALS ══ -->
+      <div class="menu-cat show" id="cat-all-principals">
+        <div class="cat-heading">✦ Plats principals</div>
+
+        <div class="dish reveal-child" data-name="Mandonguilles amb sípia" data-price="16">
+          <div class="dish-thumb-placeholder">🫕</div>
+          <div>
+            <div class="dish-name">Mandonguilles amb sípia</div>
+            <div class="dish-desc">Mandonguilles de vedella de Can Vilaró i sípia de la costa, salsa negra amb all i julivert, arrencada amb pa</div>
+            <span class="dish-badge">✦ Clàssic revisitat</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">16€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Fricandó de vedella" data-price="18">
+          <div class="dish-thumb-placeholder">🥩</div>
+          <div>
+            <div class="dish-name">Fricandó de vedella</div>
+            <div class="dish-desc">Vedella guisada de llarga cocció amb bolets de temporada, romaní i vi negre de la Penedès · amb puré de patata</div>
+            <span class="dish-badge">✦ Cuina de l'àvia</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">18€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Peix fresc a la brasa" data-price="22">
+          <div class="dish-thumb-placeholder">🐟</div>
+          <div>
+            <div class="dish-name">Peix fresc a la brasa</div>
+            <div class="dish-desc">Peix del dia de la llotja de Barcelona a la brasa de llenya, romesco de l'Arboç i verdures del mercat</div>
+            <span class="dish-badge">✦ Del dia</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">22€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Carn a la brasa amb verdures" data-price="20">
+          <div class="dish-thumb-placeholder">🥩</div>
+          <div>
+            <div class="dish-name">Carn a la brasa amb verdures</div>
+            <div class="dish-desc">Tall del dia a la brasa de llenya, escalivada de temporada i oli d'herbes fresques</div>
+            <span class="dish-badge">✦ Producte local</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">20€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+      </div><!-- /principals -->
+
+
+      <!-- ══ POSTRES ══ -->
+      <div class="menu-cat show" id="cat-all-postres">
+        <div class="cat-heading">✦ Postres</div>
+
+        <div class="dish reveal-child" data-name="Crema catalana" data-price="7">
+          <div class="dish-thumb-placeholder">🍮</div>
+          <div>
+            <div class="dish-name">Crema catalana</div>
+            <div class="dish-desc">Crema catalana clàssica amb sucre cremat al moment, pell de taronja i canyella</div>
+            <span class="dish-badge">✦ Clàssic</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">7€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Mel i mató" data-price="7">
+          <div class="dish-thumb-placeholder">🍯</div>
+          <div>
+            <div class="dish-name">Mel i mató</div>
+            <div class="dish-desc">Mató fresc de vaca amb mel de la Muntanya de Montserrat i nous de Castellnou</div>
+          </div>
+          <div class="dish-right"><span class="dish-price">7€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Pastís de xocolata" data-price="8">
+          <div class="dish-thumb-placeholder">🍫</div>
+          <div>
+            <div class="dish-name">Pastís de xocolata</div>
+            <div class="dish-desc">Pastís de xocolata negra de Valrhona, textura fondant, ganache i gelat de vainilla de Madagascar</div>
+          </div>
+          <div class="dish-right"><span class="dish-price">8€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Fruita de temporada" data-price="6">
+          <div class="dish-thumb-placeholder">🍓</div>
+          <div>
+            <div class="dish-name">Fruita de temporada</div>
+            <div class="dish-desc">Selecció de fruita fresca de temporada, menta i suc de llimona</div>
+            <span class="dish-badge">✦ Temporada</span>
+          </div>
+          <div class="dish-right"><span class="dish-price">6€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+      </div><!-- /postres -->
+
+
+      <!-- ══ BEGUDES ══ -->
+      <div class="menu-cat show" id="cat-all-begudes">
+        <div class="cat-heading">✦ Begudes</div>
+
+        <div class="dish reveal-child" data-name="Aigua mineral 0.5L" data-price="2.50">
+          <div class="dish-thumb-placeholder">💧</div>
+          <div><div class="dish-name">Aigua mineral 0.5L</div><div class="dish-desc">Natural o amb gas</div></div>
+          <div class="dish-right"><span class="dish-price">2.50€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Refresc de la casa" data-price="3">
+          <div class="dish-thumb-placeholder">🥤</div>
+          <div><div class="dish-name">Refresc de la casa</div><div class="dish-desc">Coca-Cola, Fanta, Schweppes</div></div>
+          <div class="dish-right"><span class="dish-price">3€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Suc de taronja natural" data-price="4">
+          <div class="dish-thumb-placeholder">🍊</div>
+          <div><div class="dish-name">Suc de taronja natural</div></div>
+          <div class="dish-right"><span class="dish-price">4€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Cervesa artesana" data-price="4">
+          <div class="dish-thumb-placeholder">🍺</div>
+          <div><div class="dish-name">Cervesa artesana</div><div class="dish-desc">Cervesa catalana artesanal de temporada — consultar selecció del dia</div></div>
+          <div class="dish-right"><span class="dish-price">4€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Copa de vi de la casa" data-price="4.50">
+          <div class="dish-thumb-placeholder">🍷</div>
+          <div><div class="dish-name">Copa de vi de la casa</div><div class="dish-desc">Selecció de vins catalans D.O. Penedès — blanc, negre o rosat</div></div>
+          <div class="dish-right"><span class="dish-price">4.50€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Ampolla de vi" data-price="18">
+          <div class="dish-thumb-placeholder">🍾</div>
+          <div><div class="dish-name">Ampolla de vi</div><div class="dish-desc">Carta de vins catalans D.O. Penedès, Priorat, Empordà — consultar carta de vins</div></div>
+          <div class="dish-right"><span class="dish-price">Des de 18€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+        <div class="dish reveal-child" data-name="Cafè" data-price="1.80">
+          <div class="dish-thumb-placeholder">☕</div>
+          <div><div class="dish-name">Cafè</div><div class="dish-desc">Sol, tallat o amb llet — cafè de l'Eixample torrat artesanalment</div></div>
+          <div class="dish-right"><span class="dish-price">1.80€</span><div class="dish-qty-wrap"></div></div>
+        </div>
+
+      </div><!-- /begudes -->
+
+    </div>
+  </div>
+</section>
+
+
+<!-- COMANDA -->
+<section id="order">
+  <div class="order-card">
+    <div class="order-header">
+      <h2 class="order-title">La teva <em>comanda</em></h2>
+    </div>
+    <div class="order-body">
+
+      <!-- Resum -->
+      <div class="cart-panel">
+        <div class="cart-header-row">
+          <span class="cart-label">Resum de la comanda</span>
+          <div class="cart-badge" id="cart-count">0</div>
+        </div>
+        <div id="cart-items"><p class="cart-empty">Afegeix plats de la carta</p></div>
+        <div class="cart-total-row" id="cart-total-row" style="display:none">
+          <span>Total</span>
+          <span id="cart-total-val">0.00€</span>
+        </div>
+        <button class="btn-confirmar" onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth',block:'start'})">
+          Confirmar comanda ↓
+        </button>
+      </div>
+
+      <!-- Formulari -->
+      <div class="form-panel" id="order-form">
+        <div class="mode-toggle">
+          <button class="tgl on" id="tgl-recollida" onclick="setMode('recollida')">🏃 Recollida al restaurant</button>
+          <button class="tgl"    id="tgl-domicili"  onclick="setMode('domicili')">🛵 A domicili</button>
+        </div>
+
+        <!-- Recollida -->
+        <div id="recollida-section">
+          <div class="fg">
+            <label>Nom *</label>
+            <input id="f-nom" type="text" placeholder="El teu nom" autocomplete="given-name">
+          </div>
+          <div class="fg">
+            <label>Notes (al·lèrgies, peticions especials...)</label>
+            <textarea id="f-notes" placeholder="Sense gluten, al·lèrgia a fruits secs..."></textarea>
+          </div>
+          <div class="order-info-msg" id="info-recollida">
+            ℹ️ Un cop enviada la comanda, et confirmarem per WhatsApp quan estarà llesta per recollir al restaurant.
+          </div>
+          <div id="avis-carret-buit">
+            <span>🛒</span>
+            <span>Afegeix algun plat de la carta abans d'enviar la comanda.</span>
+          </div>
+          <button class="submit-btn" onclick="enviarComanda()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar per WhatsApp
+          </button>
+        </div>
+
+        <!-- Domicili: sense servei propi, no fan delivery directe -->
+        <div id="domicili-section" style="display:none">
+          <p style="font-family:'Playfair Display',serif;font-style:italic;color:var(--text-light);font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+            Records Barcelona no disposa de servei de lliurament a domicili propi. Per a comandes per emportar, si us plau selecciona "Recollida al restaurant" o truca'ns directament.
+          </p>
+          <div style="background:rgba(107,122,79,0.07);border-left:2px solid var(--olive);padding:1rem 1.2rem;font-size:0.8rem;color:var(--text-light);line-height:1.7;">
+            📞 Reserves i comandes per emportar:<br>
+            <a href="tel:+34000000000" style="color:var(--terra);font-weight:700;">[Telèfon del restaurant]</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-card">
+    <div class="footer-ornament">
+      <div class="footer-ornament-line"></div>
+      <span class="footer-ornament-icon">✦</span>
+      <div class="footer-ornament-line"></div>
+    </div>
+    <div class="footer-name">Records</div>
+    <div class="footer-tagline">Cuina catalana contemporània · Barcelona</div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">© 2025 Records Barcelona · C/ Marquès de Sentmenat, 75</div>
+  </div>
+</footer>
+
+
+<!-- Carret flotant -->
+<div id="carret-flotant">
+  <div id="carret-icona" onclick="window.location.href='#order'" title="Veure comanda">
+    <span id="carret-emoji">🛒</span>
+    <span id="carret-total">0.00€</span>
+  </div>
+</div>
+
+
+<script>
+/* ── Nav ── */
+const navToggle   = document.getElementById('navToggle');
+const navDropdown = document.getElementById('navDropdown');
+navToggle.addEventListener('click', () => navDropdown.classList.toggle('open'));
+function closeNav() { navDropdown.classList.remove('open'); }
+document.addEventListener('click', e => {
+  if (!navToggle.contains(e.target) && !navDropdown.contains(e.target))
+    navDropdown.classList.remove('open');
+});
+
+/* ── Carret ── */
+let cart = [];
+let orderMode = 'recollida';
+
+function renderDishes() {
+  document.querySelectorAll('.dish[data-name]').forEach(dish => {
+    const name  = dish.dataset.name;
+    const price = parseFloat(dish.dataset.price);
+    const wrap  = dish.querySelector('.dish-qty-wrap');
+    if (!wrap) return;
+    const item = cart.find(i => i.name === name);
+    if (!item) {
+      wrap.innerHTML = '<button class="add-btn">+</button>';
+      wrap.querySelector('.add-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        cart.push({ name, price, qty:1 });
+        actualitzarCarret(); animacioAfegir();
+        renderCart(); renderDishes();
+      });
+    } else {
+      wrap.innerHTML = `<div class="dish-qty">
+        <button class="dish-qty-btn minus">−</button>
+        <span class="dish-qty-num">${item.qty}</span>
+        <button class="dish-qty-btn plus">+</button>
+      </div>`;
+      wrap.querySelector('.minus').addEventListener('click', e => {
+        e.stopPropagation();
+        const idx = cart.findIndex(i => i.name === name);
+        if (--cart[idx].qty <= 0) cart.splice(idx,1);
+        actualitzarCarret(); renderCart(); renderDishes();
+      });
+      wrap.querySelector('.plus').addEventListener('click', e => {
+        e.stopPropagation();
+        cart.find(i => i.name === name).qty++;
+        actualitzarCarret(); animacioAfegir(); renderCart(); renderDishes();
+      });
+    }
+  });
+}
+
+function changeQty(idx, delta) {
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx,1);
+  actualitzarCarret(); renderCart(); renderDishes();
+}
+
+function renderCart() {
+  const el       = document.getElementById('cart-items');
+  const countEl  = document.getElementById('cart-count');
+  const totalRow = document.getElementById('cart-total-row');
+  const totalVal = document.getElementById('cart-total-val');
+  countEl.textContent = cart.reduce((s,i) => s + i.qty, 0);
+  if (!cart.length) {
+    el.innerHTML = '<p class="cart-empty">Afegeix plats de la carta</p>';
+    totalRow.style.display = 'none'; return;
+  }
+  let html = '', total = 0;
+  cart.forEach((item, idx) => {
+    const sub = (item.price * item.qty).toFixed(2);
+    total += item.price * item.qty;
+    html += `<div class="cart-item-row">
+      <span class="ci-name">${item.name}</span>
+      <div class="ci-qty">
+        <button class="ci-qty-btn" onclick="changeQty(${idx},-1)">−</button>
+        <span class="ci-qty-num">${item.qty}</span>
+        <button class="ci-qty-btn" onclick="changeQty(${idx},1)">+</button>
+      </div>
+      <span class="ci-price">${sub}€</span>
+    </div>`;
+  });
+  el.innerHTML = html;
+  totalRow.style.display = 'flex';
+  totalVal.textContent = total.toFixed(2) + '€';
+}
+
+function shakeField(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const fg = el.closest('.fg');
+  if (!fg) return;
+  fg.classList.remove('field-error');
+  void fg.offsetWidth;
+  fg.classList.add('field-error');
+  setTimeout(() => fg.classList.remove('field-error'), 600);
+  el.focus();
+}
+
+function showCat(cat, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (cat === 'all') {
+    document.querySelectorAll('.menu-cat').forEach(c => c.classList.add('show'));
+  } else {
+    document.querySelectorAll('.menu-cat').forEach(c => c.classList.remove('show'));
+    document.querySelectorAll(`[id^="cat-all-${cat}"]`).forEach(c => c.classList.add('show'));
+  }
+}
+
+function setMode(mode) {
+  orderMode = mode;
+  document.getElementById('tgl-recollida').classList.toggle('on', mode === 'recollida');
+  document.getElementById('tgl-domicili').classList.toggle('on',  mode === 'domicili');
+  document.getElementById('recollida-section').style.display = mode === 'recollida' ? 'block' : 'none';
+  document.getElementById('domicili-section').style.display  = mode === 'domicili'  ? 'block' : 'none';
+}
+
+function actualitzarCarret() {
+  const totalEuros = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  document.getElementById('carret-total').textContent = totalEuros.toFixed(2) + '€';
+}
+
+function enviarComanda() {
+  if (!cart.length) {
+    const avis = document.getElementById('avis-carret-buit');
+    avis.classList.remove('visible'); void avis.offsetWidth; avis.classList.add('visible');
+    setTimeout(() => avis.classList.remove('visible'), 4000); return;
+  }
+  if (!document.getElementById('f-nom').value.trim()) { shakeField('f-nom'); return; }
+  let missatge = "🍽️ Nova comanda — Records Barcelona%0A%0A";
+  missatge += "🧾 Plats:%0A";
+  cart.forEach(item => {
+    missatge += "  • " + item.qty + "x " + item.name + " — " + (item.price * item.qty).toFixed(2) + "€%0A";
+  });
+  const nom   = document.getElementById("f-nom").value.trim();
+  const notes = document.getElementById("f-notes").value;
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  missatge += "%0A💰 Total: " + total.toFixed(2) + "€";
+  missatge += "%0A👤 Nom: " + nom;
+  if (notes) missatge += "%0A📝 Notes: " + notes;
+  /* ← CANVIA el número de telèfon: 34XXXXXXXXX */
+  window.open("https://wa.me/34XXXXXXXXX?text=" + missatge, "_blank");
+}
+
+function animacioAfegir() {
+  const icona = document.getElementById("carret-icona");
+  if (!icona) return;
+  icona.classList.remove("pop"); void icona.offsetWidth; icona.classList.add("pop");
+  icona.addEventListener("animationend", () => icona.classList.remove("pop"), { once:true });
+}
+
+(function(){
+  const obs = new IntersectionObserver(entries => entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  }), { threshold:0.08 });
+  document.querySelectorAll('.reveal,.reveal-child').forEach(el => obs.observe(el));
+})();
+
+renderDishes();
+</script>
+</body>
+</html>
